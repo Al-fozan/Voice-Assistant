@@ -27,7 +27,7 @@ class VoiceAssistant:
         
         # Initialize AI components
         self.model = whisper.load_model("medium")
-        self.co = cohere.Client("YOUR_COHERE_API_KEY")  # Replace with your key
+        self.co = cohere.Client("oWYl3100H2DzoNXWBRyjuZsps0zrolbGIaRPsKy9")  # Replace with your key
         
         # Audio control
         self.audio_queue = queue.Queue()
@@ -135,7 +135,8 @@ class VoiceAssistant:
                                                      font=('Segoe UI', 10),
                                                      bg='#F5F5F5',
                                                      relief=tk.FLAT,
-                                                     borderwidth=1)
+                                                     borderwidth=1,
+                                                     state=tk.NORMAL)  # Make it copyable
         self.input_text.pack(fill=tk.BOTH, expand=True)
         
         self.output_frame = ttk.LabelFrame(main_frame, 
@@ -149,7 +150,8 @@ class VoiceAssistant:
                                                       font=('Segoe UI', 10),
                                                       bg='#F0F8FF',
                                                       relief=tk.FLAT,
-                                                      borderwidth=1)
+                                                      borderwidth=1,
+                                                      state=tk.NORMAL)  # Make it copyable
         self.output_text.pack(fill=tk.BOTH, expand=True)
         
         # Progress bar with improved styling
@@ -461,10 +463,11 @@ class VoiceAssistant:
             print(f"Speech generation error: {e}")
     
     def display_text(self, widget, text):
-        """Display text in GUI"""
-        widget.config(state=tk.NORMAL)
+        """Display text in GUI with separator lines"""
         widget.insert(tk.END, text + "\n")
-        widget.config(state=tk.DISABLED)
+        # Add separator line after each response
+        if "AI:" in text:
+            widget.insert(tk.END, "-" * 50 + "\n")
         widget.see(tk.END)
         self.root.update_idletasks()
     
@@ -607,14 +610,8 @@ class VoiceAssistant:
     
     def clear_chat(self):
         """Clear all text in chat areas"""
-        self.input_text.config(state=tk.NORMAL)
         self.input_text.delete(1.0, tk.END)
-        self.input_text.config(state=tk.DISABLED)
-        
-        self.output_text.config(state=tk.NORMAL)
         self.output_text.delete(1.0, tk.END)
-        self.output_text.config(state=tk.DISABLED)
-        
         self.update_status("Chat cleared")
     
 if __name__ == "__main__":
