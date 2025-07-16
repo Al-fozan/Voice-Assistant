@@ -2,7 +2,7 @@
 
 A sophisticated voice assistant application that supports both English and Arabic languages, featuring real-time speech recognition, AI-powered responses, and natural text-to-speech capabilities.
 
-![Voice-Assistant](program.png)
+![Voice-Assistant](Program.png)
 *Modern and intuitive voice assistant interface supporting bilingual conversations*
 
 ##  Features
